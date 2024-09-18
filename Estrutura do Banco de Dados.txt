@@ -1,0 +1,24 @@
+Estrutura do Banco de Dados
+
+Tabelas e seus campos
+Tabela: Livros
+
+id_livro: Identificador único do livro
+titulo: Título do livro
+autor: Autor do livro
+ano_publicacao: Ano de publicação
+disponibilidade: Status (disponível/emprestado)
+Tabela: Usuarios
+
+id_usuario: Identificador único do usuário
+nome: Nome do usuário
+cpf: CPF do usuário
+data_cadastro: Data de cadastro
+Tabela: Emprestimos
+
+id_emprestimo: Identificador único do empréstimo
+id_usuario: ID do usuário (chave estrangeira)
+id_livro: ID do livro (chave estrangeira)
+data_emprestimo: Data do empréstimo
+data_devolucao: Data de devolução (se já devolvido)
+status: Status do empréstimo (ativo/encerrado)
