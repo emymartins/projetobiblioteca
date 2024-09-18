@@ -1,0 +1,30 @@
+from pyspark.sql import SparkSession
+
+# Inicializando Spark
+spark = SparkSession.builder \
+    .appName("Gerenciamento de Empréstimos de Livros") \
+    .getOrCreate()
+
+# Criando DataFrames para cada tabela
+
+# Tabela Livros
+livros_data = [(1, "1984", "George Orwell", 1949, "disponível"),
+               (2, "Dom Casmurro", "Machado de Assis", 1899, "disponível")]
+livros_df = spark.createDataFrame(livros_data, ["id_livro", "titulo", "autor", "ano_publicacao", "disponibilidade"])
+
+# Tabela Usuarios
+usuarios_data = [(1, "João Silva", "123.456.789-00", "2024-01-10"),
+                 (2, "Maria Souza", "987.654.321-01", "2024-01-15")]
+usuarios_df = spark.createDataFrame(usuarios_data, ["id_usuario", "nome", "cpf", "data_cadastro"])
+
+# Tabela Emprestimos
+emprestimos_data = [(1, 1, 2, "2024-09-01", None, "ativo")]
+emprestimos_df = spark.createDataFrame(emprestimos_data, ["id_emprestimo", "id_usuario", "id_livro", "data_emprestimo", "data_devolucao", "status"])
+
+# Salvando os DataFrames em formatos desejados (ex: Parquet)
+livros_df.write.mode("overwrite").parquet("livros.parquet")
+usuarios_df.write.mode("overwrite").parquet("usuarios.parquet")
+emprestimos_df.write.mode("overwrite").parquet("emprestimos.parquet")
+
+# Encerrando Spark
+spark.stop()
